@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Receipt Split</title>
-  <meta name="description" content="Snap a grocery receipt, tag who each item is for, see who owes the buyer what.">
+  <meta name="description" content="Enter the items from a shared grocery run, tag who each is for, see who owes the buyer what.">
   <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#16181a" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,57 +24,33 @@
 
   <main>
     <!-- 1. People -->
-    <section class="card" id="peopleCard">
+    <section class="card">
       <div class="card-head">
-        <h2><b>1</b> Who's in</h2>
-        <p class="hint">Use the initials you write on the receipt.</p>
+        <h2><b>1</b> People</h2>
+        <p class="hint">Add everyone, including the buyer. Tap a name to mark who <b>paid</b>.</p>
       </div>
       <div id="peopleList" class="people"></div>
       <form id="addPersonForm" class="row">
-        <input id="personInput" type="text" placeholder="Initial, e.g. K" maxlength="4" autocomplete="off" autocapitalize="characters" enterkeyhint="done" aria-label="Person initials">
+        <input id="personInput" type="text" placeholder="Name" maxlength="20" autocomplete="off" autocapitalize="words" enterkeyhint="done" aria-label="Person name">
         <button type="submit" class="primary">Add</button>
       </form>
-      <p class="hint small">Tap a person to mark who <b>paid</b>.</p>
     </section>
 
-    <!-- 2. Receipt -->
-    <section class="card" id="scanCard">
+    <!-- 2. Items -->
+    <section class="card" id="itemsCard">
       <div class="card-head">
-        <h2><b>2</b> Receipt</h2>
-        <p class="hint">Flat, well lit, whole receipt in the frame.</p>
+        <h2><b>2</b> Items</h2>
+        <p class="hint">Type the price, tap who it's for. <b>ALL</b> = split between everyone.</p>
       </div>
-      <label class="scan-btn" for="fileInput">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-        <span>Scan or choose photo</span>
-      </label>
-      <input id="fileInput" type="file" accept="image/*" hidden>
-      <div id="progress" class="progress" hidden>
-        <div class="bar"><i id="progressBar"></i></div>
-        <span id="progressText">Loading…</span>
-      </div>
-      <div id="preview" class="preview" hidden><img id="previewImg" alt="Receipt photo"></div>
-      <button id="manualBtn" class="ghost" type="button">or add items by hand</button>
-    </section>
-
-    <!-- 3. Items -->
-    <section class="card" id="itemsCard" hidden>
-      <div class="card-head">
-        <h2><b>3</b> Who's it for</h2>
-        <p class="hint">Tap initials on each line. <b>ALL</b> = split between everyone.</p>
-      </div>
-      <div id="checkBar" class="check"></div>
       <ol id="itemList" class="items"></ol>
-      <button id="addItemBtn" class="ghost" type="button">+ Add line</button>
-      <details class="raw">
-        <summary>What the scanner read</summary>
-        <pre id="rawText"></pre>
-      </details>
+      <button id="addItemBtn" class="add-line" type="button">+ Add item</button>
+      <div id="checkBar" class="check"></div>
     </section>
 
-    <!-- 4. Result -->
+    <!-- 3. Result -->
     <section class="card result" id="resultCard" hidden>
       <div class="card-head">
-        <h2><b>4</b> Settle up</h2>
+        <h2><b>3</b> Settle up</h2>
       </div>
       <div id="resultBody"></div>
       <button id="shareBtn" class="primary wide" type="button">Share result</button>
@@ -83,8 +59,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js" defer></script>
-  <script src="parser.js"></script>
+  <script src="split.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
